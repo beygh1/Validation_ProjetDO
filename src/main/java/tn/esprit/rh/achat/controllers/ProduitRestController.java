@@ -29,7 +29,7 @@ public class ProduitRestController {
 	// http://localhost:8089/SpringMVC/produit/retrieve-produit/8
 	@GetMapping("/retrieve-produit/{produit-id}")
 	@ResponseBody
-	public Produit retrieveRayon(@PathVariable("produit-id") Long produitId) {
+	public Produit retrieveProduit(@PathVariable("produit-id") Long produitId) {
 		return produitService.retrieveProduit(produitId);
 	}
 
