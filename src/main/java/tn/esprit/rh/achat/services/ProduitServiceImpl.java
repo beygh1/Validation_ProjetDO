@@ -1,6 +1,8 @@
 package tn.esprit.rh.achat.services;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.rh.achat.entities.Produit;
@@ -22,6 +24,8 @@ public class ProduitServiceImpl implements IProduitService {
 	StockRepository stockRepository;
 	@Autowired
 	CategorieProduitRepository categorieProduitRepository;
+    
+	private static final Logger log = Logger.getLogger(ProduitServiceImpl.class);
 
 	@Override
 	public List<Produit> retrieveAllProduits() {

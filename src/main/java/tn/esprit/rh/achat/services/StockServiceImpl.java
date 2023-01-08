@@ -1,6 +1,9 @@
 package tn.esprit.rh.achat.services;
 
+import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.rh.achat.entities.Stock;
@@ -16,7 +19,7 @@ public class StockServiceImpl implements IStockService {
 
 	@Autowired
 	StockRepository stockRepository;
-
+	private static final Logger log = Logger.getLogger(StockServiceImpl.class);
 
 	@Override
 	public List<Stock> retrieveAllStocks() {
