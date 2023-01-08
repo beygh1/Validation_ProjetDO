@@ -1,6 +1,8 @@
 package tn.esprit.rh.achat.services;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.rh.achat.entities.*;
@@ -29,6 +31,8 @@ public class FactureServiceImpl implements IFactureService {
     @Autowired
     ReglementServiceImpl reglementService;
 	
+	private static final Logger log = Logger.getLogger(FactureServiceImpl.class);
+ 
 	@Override
 	public List<Facture> retrieveAllFactures() {
 		List<Facture> factures = (List<Facture>) factureRepository.findAll();

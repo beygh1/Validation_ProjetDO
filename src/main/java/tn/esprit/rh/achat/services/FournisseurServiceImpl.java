@@ -1,6 +1,8 @@
 package tn.esprit.rh.achat.services;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.rh.achat.entities.DetailFournisseur;
@@ -26,6 +28,8 @@ public class FournisseurServiceImpl implements IFournisseurService {
 	ProduitRepository produitRepository;
 	@Autowired
 	SecteurActiviteRepository secteurActiviteRepository;
+    
+	private static final Logger log = Logger.getLogger(FournisseurServiceImpl.class);
 
 	@Override
 	public List<Fournisseur> retrieveAllFournisseurs() {
