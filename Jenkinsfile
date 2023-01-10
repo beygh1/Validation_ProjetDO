@@ -20,22 +20,22 @@ pipeline {
         //         sh  'mvn verify -DskipUnitTests'
         //     }
         // }
-        // stage('Maven Build') {
-
-        //     steps {
-        //         sh  'mvn clean install'
-        //     }
-        // }
-        stage('SonarQube Analysis') {
+        stage('Maven Build') {
 
             steps {
-                script{
-                    withSonarQubeEnv(credentialsId: 'sonar-api-key') {
-                     sh 'mvn clean package sonar:sonar'
-                 }
-                }    
+                sh  'mvn clean install'
             }
         }
+        // stage('SonarQube Analysis') {
+
+        //     steps {
+        //         script{
+        //             withSonarQubeEnv(credentialsId: 'sonar-api-key') {
+        //              sh 'mvn clean package sonar:sonar'
+        //          }
+        //         }    
+        //     }
+        // }
 
     }
 
