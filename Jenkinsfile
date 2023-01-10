@@ -26,16 +26,15 @@ pipeline {
                 sh 'mvn clean package -DskipTests'
             }
         }
-        // stage('SonarQube Analysis') {
-
-        //     steps {
-        //         script{
-        //             withSonarQubeEnv(credentialsId: 'sonar-api-key') {
-        //              sh 'mvn clean package sonar:sonar'
-        //          }
-        //         }    
-        //     }
-        // }
+        stage('SonarQube Analysis') {
+            steps {
+                script{
+                    withSonarQubeEnv(credentialsId: 'sonar-api-key') {
+                     sh 'mvn clean package sonar:sonar'
+                 }
+                }    
+            }
+        }
 
     }
 
