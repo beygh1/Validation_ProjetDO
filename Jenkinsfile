@@ -6,7 +6,7 @@ pipeline {
         stage('Git Checkout') {
 
             steps {
-                git branch: 'main', url: 'https://github.com/beygh1/Validation_ProjetDO.git'
+                git branch: 'jenkinsFileHedi', url: 'https://github.com/beygh1/Validation_ProjetDO.git'
                   
             }
         }
