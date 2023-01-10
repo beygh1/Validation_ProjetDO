@@ -35,6 +35,18 @@ pipeline {
                 }    
             }
         }
+        stage('Build Project Skipping tests') {
+            steps {
+                script{
+                        timestamps {
+                                sh "mvn clean deploy -B -DskipTests -DaltDeploymentRepository=nexus::default::http://192.168.1.188:8081/repository/maven-snapshots/"
+                        }
+                  
+                }
+            }
+
+        }
+
 
     }
 
