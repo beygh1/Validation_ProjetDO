@@ -26,7 +26,7 @@ pipeline {
         //         sh  'mvn clean install'
         //     }
         // }
-        stage('Static Code Analysis') {
+        stage('SonarQube Analysis') {
 
             steps {
                 script{
@@ -34,7 +34,7 @@ pipeline {
                      sh 'mvn clean package sonar:sonar'
                  }
                 }    
-            
+            }
         }
 
     }
