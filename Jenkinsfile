@@ -14,28 +14,29 @@ pipeline {
         //         sh 'mvn test' 
         //     }
         // }
-        stage('Integration Testing') {
+        // stage('Integration Testing') {
 
-            steps {
-                sh  'mvn verify -DskipUnitTests'
-            }
-        }
+        //     steps {
+        //         sh  'mvn verify -DskipUnitTests'
+        //     }
+        // }
         // stage('Maven Build') {
 
         //     steps {
         //         sh  'mvn clean install'
         //     }
         // }
-    //     stage('Static Code Analysis') {
+        stage('Static Code Analysis') {
 
-    //         steps {
-    //             script{
-    //                 withSonarQubeEnv(credentialsId: 'sonar-api-key') {
-    //                  sh 'mvn clean package sonar:sonar'
-    //              }
-    //             }    
+            steps {
+                script{
+                    withSonarQubeEnv(credentialsId: 'sonar-api-key') {
+                     sh 'mvn clean package sonar:sonar'
+                 }
+                }    
             
-    //     }
+        }
+
     }
 
 }
