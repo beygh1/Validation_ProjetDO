@@ -64,15 +64,7 @@
         <artifactId>mssql-jdbc</artifactId>
         <scope>runtime</scope>
        </dependency>
-       <distributionManagement>
-
-        <repository>
-            <id>deploymentRepo</id>
-            <name>Nexus Repository</name>
-            <url>http://192.168.1.188/:8081/repository/maven-releases/</url>
-        </repository>
-
-    </distributionManagement>
+       
     </dependencies>
 
     <build>
@@ -96,5 +88,13 @@
 
         </plugins>
     </build>
+   <distributionManagement>
 
+        <repository>
+            <id>deploymentRepo</id>
+            <name>Nexus Repository</name>
+            <url>http://192.168.1.188/:8081/repository/maven-releases/</url>
+        </repository>
+
+    </distributionManagement>
 </project>
