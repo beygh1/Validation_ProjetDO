@@ -8,18 +8,18 @@ pipeline {
                 git branch: 'jenkinsFileHedi', url: 'https://github.com/beygh1/Validation_ProjetDO.git'
             }
         }
-        stage('Unit Testing') {
-
-            steps {
-                sh 'mvn test' 
-            }
-        }
-        // stage('Integration Testing') {
+        // stage('Unit Testing') {
 
         //     steps {
-        //         sh  'mvn verify -DskipUnitTests'
+        //         sh 'mvn test' 
         //     }
         // }
+        stage('Integration Testing') {
+
+            steps {
+                sh  'mvn verify -DskipUnitTests'
+            }
+        }
         // stage('Maven Build') {
 
         //     steps {
