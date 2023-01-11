@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('git repo & clean') {
             steps {
-               sh "rmdir  /s /q Validation_ProjetDO"
+               sh "rm -rf  Validation_ProjetDO"
                 sh "git clone https://github.com/beygh1/Validation_ProjetDO.git"
                 sh "mvn clean -f Validation_ProjetDO"
             }
