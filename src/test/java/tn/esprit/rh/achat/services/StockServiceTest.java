@@ -22,22 +22,22 @@ public class StockServiceTest {
     @MockBean
     private StockRepository repository;
     @Test
-    public void testRetrieveAllStocks() {
-        List<Stock> StockFixtures= Stream.of(new Stock("stock1",50,1),new Stock("stock2",20,1),new Stock("stock3",40,5)).collect(Collectors.toList());
+    public void retrieveStocks() {
+        List<Stock> StockFixtures= Stream.of(new Stock("test1",50,1),new Stock("test2",20,1),new Stock("test3",40,5)).collect(Collectors.toList());
         when(repository.findAll()).thenReturn(StockFixtures);
         List<Stock> RetrievedStockList = stockService.retrieveAllStocks();
         Assertions.assertEquals(3, RetrievedStockList.size());
     }
     @Test
-    public void testAddStock() {
-        Stock myStock = new Stock("stock4",15,3);
-        when(repository.save(myStock)).thenReturn(myStock);
-        Assertions.assertEquals(myStock, stockService.addStock(myStock));
+    public void addStock() {
+        Stock stock = new Stock("test4",17,3);
+        when(repository.save(stock)).thenReturn(stock);
+        Assertions.assertEquals(stock, stockService.addStock(stock));
     }
     @Test
-    public void testDeleteStock() {
-        Stock myStock = new Stock(1l,"stock5",15,3,null);
-        stockService.deleteStock(myStock.getIdStock());
-        verify(repository,times(1)).deleteById(myStock.getIdStock());
+    public void deleteStock() {
+        Stock stock = new Stock(1l,"test5",17,3,null);
+        stockService.deleteStock(stock.getIdStock());
+        verify(repository,times(1)).deleteById(stock.getIdStock());
     }
 }
