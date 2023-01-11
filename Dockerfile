@@ -1,4 +1,10 @@
-FROM openjdk:11-jdk-alpine
-ADD target/users-mysql.jar users-mysql.jar
+FROM maven as build
+WORKDIR /app
+COPY . .
+RUN install
+
+FROM openjdk:11.0
+WORKDIR /app
+COPY --from= build /app/target/achat.jar /app/
 EXPOSE 8086
-ENTRYPOINT ["java","-jar","/users-mysql.jar"]
+CMD ["java","-jar","/achat.jar"]
