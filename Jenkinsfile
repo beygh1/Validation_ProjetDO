@@ -2,11 +2,11 @@ pipeline {
     agent any
     environment {
         EMAIL_RECIPIENTS = "mohamedelhedi.mansouri@esprit.tn"
-        mvnHome = tool 'MAVEN_384'
-        JavaHome = tool 'JAVA8_HOME'
-        registry= "bessem8/timesheet"
-        registryCredential = 'dockerHub'
-        dockerImage = ''
+        // mvnHome = tool 'MAVEN_384'
+        // JavaHome = tool 'JAVA8_HOME'
+        // registry= "bessem8/timesheet"
+        // registryCredential = 'dockerHub'
+        // dockerImage = ''
         localhost="192.168.1.188"
     }
     stages {
