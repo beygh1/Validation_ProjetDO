@@ -19,7 +19,7 @@ pipeline {
         stage('Unit Testing') {
             steps {
                 //sh 'mvn test'
-                sh 'mvn test -DskipTests' 
+                sh 'mvn test' 
             }
         }
         stage('Integration Testing') {
@@ -31,7 +31,7 @@ pipeline {
         stage('Maven Build') {
             steps {
                 //sh  'mvn clean install'
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean package'
             }
         }
         stage('SonarQube Analysis') {
@@ -43,7 +43,6 @@ pipeline {
                 sh 'mvn sonar:sonar -Dsonar.projectKey=sonar-api-key -Dsonar.host.url=http://${localhost}:9000 -Dsonar.login=b400fade54c7c756f2d837fd97d7619290f43057'
             }    
         }
-       
         stage('MVN DEPLOY') {
             steps {
                 sh 'mvn clean package -DskipTests deploy:deploy-file -DgroupId=tn.esprit -DartifactId=achat -Dversion=1.0 -DgeneratePom=true -Dpackaging=war -DrepositoryId=deploymentRepo -Durl=http://${localhost}:8081/repository/maven-releases/ -Dfile=target/achat-1.0.jar'
