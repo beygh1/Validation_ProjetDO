@@ -1,5 +1,14 @@
 pipeline {
     agent any
+    environment {
+        EMAIL_RECIPIENTS = "mohamedelhedi.mansouri@esprit.tn"
+        mvnHome = tool 'MAVEN_384'
+        JavaHome = tool 'JAVA8_HOME'
+        registry= "bessem8/timesheet"
+        registryCredential = 'dockerHub'
+        dockerImage = ''
+        localhost="192.168.1.188"
+    }
     stages {
 
         stage('Git Checkout') {
@@ -35,17 +44,12 @@ pipeline {
                 }    
             }
         }
-        stage('Build Project Skipping tests') {
-            steps {
-                script{
-                        timestamps {
-                                sh 'mvn clean deploy -B -DskipTests -DaltDeploymentRepository=nexus::default::http://192.168.1.188:8081/repository/maven-snapshots/'
-                        }
-                  
-                }
-            }
+        stage('MVN DEPLOY') {
+            steps {
+                sh 'mvn clean package -DskipTests deploy:deploy-file -DgroupId=tn.esprit -DartifactId=achat -Dversion=1.0 -DgeneratePom=true -Dpackaging=war -DrepositoryId=deploymentRepo -Durl=http://${localhost}:8081/repository/maven-releases/ -Dfile=target/achat-1.0.jar'
+            }
+        }
 
-        }
 
 
     }
