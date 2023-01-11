@@ -1,46 +1,27 @@
 pipeline {
-  agent any
-  tools {
-        maven "Maven 3.8.6" 
-   }
-  
-
-  stages {
-    
-      stage('Clone sources') {
-            git url: 'https://github.com/beygh1/Validation_ProjetDO.git'
-       }
-      stage('Build Artifact') {
+    agent any
+    stages {
+        stage('git repo & clean') {
             steps {
-              sh "mvn clean package -DskipTests=true"
-              archive 'target/*.jar' 
-            }  
-       }
-      stage('Test Maven - JUnit') {
-            steps {
-              sh "mvn test"
-            }
-            post{
-              always{
-                junit 'target/surefire-reports/*.xml'
-              }
+               bat "rmdir  /s /q Validation_ProjetDO"
+                bat "git clone https://github.com/beygh1/Validation_ProjetDO.git"
+                bat "mvn clean -f Validation_ProjetDO"
             }
         }
-        
-
-      stage('Sonarqube Analysis - SAST') {
+        stage('install') {
             steps {
-                  withSonarQubeEnv('SonarQube') {
-           sh "mvn sonar:sonar \
-                              -Dsonar.projectKey=maven-jenkins-pipeline \
-                        -Dsonar.host.url=http://34.173.74.192:9000" 
-                }
-           timeout(time: 2, unit: 'MINUTES') {
-                      script {
-                        waitForQualityGate abortPipeline: true
-                    }
-                }
-              }
+                bat "mvn install -f Validation_ProjetDO"
+            }
         }
-     }
+        stage('test') {
+            steps {
+                bat "mvn test -f Validation_ProjetDO"
+            }
+        }
+        stage('package') {
+            steps {
+                bat "mvn package -f Validation_ProjetDO"
+            }
+        }
+    }
 }
