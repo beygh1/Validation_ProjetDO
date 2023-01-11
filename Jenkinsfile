@@ -15,7 +15,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                bat "mvn test -f Validation_ProjetDO"
+                sh "mvn test -f Validation_ProjetDO"
             }
         }
         stage('package') {
