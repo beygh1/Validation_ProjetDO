@@ -47,5 +47,28 @@ pipeline {
         //         }
         //     }
         // }
+    post {
+
+        always {
+
+     
+
+            emailext (
+
+                    to: "achref.djebbi@esprit.tn",
+
+                    replyTo: "achref.djebbi@esprit.tn",
+
+                    subject: "BuildResult ${currentBuild.currentResult}",
+
+                    mimeType: 'text/html',
+
+                    body: ''test''
+
+            )
+
+        }
+
+    }
     }
 }
