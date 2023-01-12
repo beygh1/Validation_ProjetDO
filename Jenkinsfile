@@ -1,5 +1,13 @@
 pipeline {
     agent any
+      environment {
+        localhost = "192.168.56.2"
+        dockerImage = "achat"
+        tagname = "second"
+        registry= "fouadk1/achat"
+        registryCredential = "dockerRegPwd"
+    }
+
 
        stages {
         stage('Clone source code from Git') {
@@ -29,13 +37,12 @@ pipeline {
         }
         stage('MVN SONARQUBE') {
             steps {
-                //sh 'mvn sonar:sonar -Dsonar.projectKey=achref-key -Dsonar.host.url=http://192.168.56.2:9000 -Dsonar.login=293485fbadeb05e888a8f29eac6e24cf992b0b21'
-                sh"mvn package -B -DskipTests sonar:sonar -Dsonar.host.url=http://192.168.56.2:9000 -Dsonar.login=293485fbadeb05e888a8f29eac6e24cf992b0b21"
+                sh"mvn package -B -DskipTests sonar:sonar -Dsonar.host.url=http://${localhost}:9000 -Dsonar.login=293485fbadeb05e888a8f29eac6e24cf992b0b21"
             }
         }
         stage('MVN DEPLOY') {
             steps {
-                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit -DartifactId=achat -Dversion=1.0 -DgeneratePom=true -Dpackaging=war -DrepositoryId=deploymentRepo -Durl=http://192.168.56.2:8081/repository/maven-releases/ -Dfile=target/achat-1.0.jar'
+                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit -DartifactId=achat -Dversion=1.0 -DgeneratePom=true -Dpackaging=war -DrepositoryId=deploymentRepo -Durl=http://${localhost}:8081/repository/maven-releases/ -Dfile=target/achat-1.0.jar'
             }
         }
         // stage('Docker Image Build') {
