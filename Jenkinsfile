@@ -65,11 +65,11 @@ pipeline {
             } 
             
          }
-        //  stage('RMV IMG') {
-        //     steps {
-        //         sh "docker rmi $registry:latest"
-        //     }
-        // }
+         stage('RMV IMG') {
+            steps {
+                sh "docker rmi $registry:latest"
+            }
+        }
         //    stage('DOCKER-COMPOSE') {
         //     steps {
         //         sh 'docker-compose down --remove-orphans'
