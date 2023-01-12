@@ -63,7 +63,7 @@ pipeline {
 
                     mimeType: 'text/html',
 
-                    body: ''test''
+                    body: "test"
 
             )
 
