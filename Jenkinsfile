@@ -45,13 +45,37 @@ pipeline {
                 sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit -DartifactId=achat -Dversion=1.0 -DgeneratePom=true -Dpackaging=war -DrepositoryId=deploymentRepo -Durl=http://${localhost}:8081/repository/maven-releases/ -Dfile=target/achat-1.0.jar'
             }
         }
-        // stage('Docker Image Build') {
-        //     steps{
-        //         script{
-        //             sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
-        //             sh 'docker image tag $JOB_NAME:v1.$BUILD_ID medhedimansouri/$JOB_NAME:v1.$BUILD_ID'
-        //             sh 'docker image tag $JOB_NAME:v1.$BUILD_ID medhedimansouri/$JOB_NAME:latest'
-        //         }
+        stage('BUILD') { 
+            steps { 
+                script { 
+       
+                    dockerImage = docker.build registry
+                    
+                }
+            } 
+        }
+        // stage('PUSH DOCKERHUB') { 
+        //     steps { 
+             
+        //                 timestamps {
+		// 				  docker.withRegistry ('', registryCredential ) {
+		// 					  dockerImage.push()
+        //                 }
+        //             } 
+                
+        //     } 
+            
+        // }
+        //  stage('RMV IMG') {
+        //     steps {
+        //         sh "docker rmi $registry:latest"
+        //     }
+        // }
+        //    stage('DOCKER-COMPOSE') {
+        //     steps {
+        //         sh 'docker-compose down --remove-orphans'
+        //         sh 'docker-compose -f docker-compose.yml up -d'
+        //         sh 'docker restart spring-boot-docker-container'
         //     }
         // }
 
