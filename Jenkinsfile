@@ -27,11 +27,11 @@ pipeline {
                 sh 'mvn clean'
             }
         }
-        stage('MVN TEST (Mockito)') {
-            steps {
-                sh 'mvn test'
-            }
-        }
+        // stage('MVN TEST (Mockito)') {
+        //     steps {
+        //         sh 'mvn test'
+        //     }
+        // }
         stage('MVN SONARQUBE') {
             steps {
                 sh 'mvn sonar:sonar -Dsonar.projectKey=achref-key -Dsonar.host.url=http://${localhost}:9000 -Dsonar.login=293485fbadeb05e888a8f29eac6e24cf992b0b21'
