@@ -14,11 +14,11 @@
     <name>achat</name>
     <description>Projet pour le module DevOps</description>
          <!-- Deploy to Nexus -->
-    <distributionManagement>
-      <repository>
-        <id>deploymentRepo</id>
-        <name>Nexus Repository</name>
-        <url>http://192.168.56.2:8081/repository/maven-releases/</url>
+   <distributionManagement>
+    <repository>
+     <id>deploymentRepo</id>
+      <name>Nexus Repository</name>
+      <url>http://localhost:8081/repository/maven-releases/</url>
       </repository>
     </distributionManagement>
     <properties>
