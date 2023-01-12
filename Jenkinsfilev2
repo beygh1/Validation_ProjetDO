@@ -14,7 +14,6 @@ pipeline {
         stage('Clone Repo') {
             steps {
                 script{
-                    
                         checkout([$class: 'GitSCM', branches: [[name: 'jenkinsFileHedi']],
                                   doGenerateSubmoduleConfigurations: false,gitTool: 'Default', extensions: [[$class: 'CleanBeforeCheckout'],
                                                                                                               [$class: 'CloneOption', timeout: 1000, depth: 1, reference: '', shallow: true]] ,
@@ -25,119 +24,87 @@ pipeline {
             }
 
         }
-		 stage("Run Build & tests parallel") {
-			 failFast true
+		stage("Run Build & tests parallel") {
+			failFast true
 			parallel {
-		 stage('Build Project Skipping tests') {
-            steps {
-                script{
-                        timestamps {
-                                sh "${mvnHome}/bin/mvn clean deploy -B -DskipTests -DaltDeploymentRepository=deploymentRepo::default::http://${localhost}:8081/repository/maven-releases/"
-
+                stage('Build Project Skipping tests') {
+                    steps {
+                        script{
+                                timestamps {
+                                        sh "${mvnHome}/bin/mvn clean deploy -B -DskipTests -DaltDeploymentRepository=deploymentRepo::default::http://${localhost}:8081/repository/maven-releases/"
+                                }
                         }
+                    }
                 }
-            }
-        }
-		
-		stage('Run Tests') {
-            steps {
-				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                script{   
-                        timestamps { 
-                                sh "${mvnHome}/bin/mvn test -B"
+                
+                stage('Run Tests') {
+                    steps {
+                        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                            script{   
+                                    timestamps { 
+                                            sh "${mvnHome}/bin/mvn test -B"
+                                    }
+                            
+                            }
                         }
-                  
+                    }
                 }
-            }
-			}
-        }
 		
 			}
 		 }
-		
-		
-		        stage('Sonar') {
-
+		stage('SonarQube') {
             steps {
                 script{
-                    
                         timestamps {
-                      
                                 sh "${mvnHome}/bin/mvn package -B -DskipTests sonar:sonar -Dsonar.host.url=http://${localhost}:9000 -Dsonar.login=b400fade54c7c756f2d837fd97d7619290f43057"
-
                         }
                   
                 }
             }
-
         }
-		
-		
-		 stage('Building Image') {
 
+		stage('Building Doker Image') {
             steps {
                 script{
-                    
                         timestamps {
-                      
-                          dockerImage = docker.build registry + ":$BUILD_NUMBER"     
-						  
+                          dockerImage = docker.build registry + ":$BUILD_NUMBER"
                         }
-                  
                 }
-            }
-
-        
-    }
+            }   
+        }
 	
-	 stage('Deploy Image') {
-
+	    stage('Deploy Image') {
             steps {
                 script{
-                    
                         timestamps {
-                         
-						  docker.withRegistry ('', registryCredential ) {
+                          docker.withRegistry ('', registryCredential ) {
 							  dockerImage.push()
+                          }
                         }
-                  
                 }
             }
-
         }
-    }
 	
-	 stage('Cleaning up') {
-
+        stage('Cleaning up') {
+            steps {
+                    script{
+                            timestamps {
+                                sh "docker rmi $registry:$BUILD_NUMBER" 
+                            }
+                    
+                    }
+            }    
+        }
+	
+		stage('Running Docker Compose') {
             steps {
                 script{
-                    
                         timestamps {
-                      
-                          sh "docker rmi $registry:$BUILD_NUMBER" 
-                        }
-                  
-                }
-            }
-
-        
-    }
-	
-		 stage('Running Docker Compose') {
-
-            steps {
-                script{
-                    
-                        timestamps {
-                      
                           sh "docker-compose -f docker-compose.yml up -d" 
                         }
-                  
                 }
-            }
-
-        
-    }
+            } 
+        }
     }
     post {
         always {
