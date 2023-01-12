@@ -56,15 +56,15 @@ pipeline {
         stage('PUSH DOCKERHUB') { 
             steps { 
              
-                        timestamps {
+                       
 						  docker.withRegistry ('', registryCredential ) {
 							  dockerImage.push()
                         }
-                    } 
+                    
                 
             } 
             
-        // }
+         }
         //  stage('RMV IMG') {
         //     steps {
         //         sh "docker rmi $registry:latest"
