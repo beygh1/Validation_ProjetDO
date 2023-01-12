@@ -20,7 +20,7 @@ pipeline {
          stage('Unit Testing') {
             steps {
               
-                sh 'mvn test -DskipTests ' 
+                sh 'mvn test' 
             }
         }
         stage('Integration Testing') {
