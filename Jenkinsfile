@@ -70,13 +70,13 @@ pipeline {
                 sh "docker rmi $registry:latest"
             }
         }
-        //    stage('DOCKER-COMPOSE') {
-        //     steps {
-        //         sh 'docker-compose down --remove-orphans'
-        //         sh 'docker-compose -f docker-compose.yml up -d'
-        //         sh 'docker restart spring-boot-docker-container'
-        //     }
-        // }
+           stage('DOCKER-COMPOSE') {
+            steps {
+                sh 'docker-compose down --remove-orphans'
+                sh 'docker-compose -f docker-compose.yml up -d'
+                sh 'docker restart spring-boot-docker-container'
+            }
+        }
 
     }
     post {

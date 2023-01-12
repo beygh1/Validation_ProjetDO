@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+        mysql-standalone:
+                image: 'mysql:5.6'
+                environment:
+                        - MYSQL_ROOT_PASSWORD=password
+                        - MYSQL_PASSWORD=password
+                        - MYSQL_DATABASE=achatdb
+                        - MYSQL_USER=achref
+                ports:
+                        - "3306:3306"
+        springboot-docker-container:
+                build:
+                        context: .
+                container_name: spring-boot-docker-container
+                image: achref2023/repodocker
+                ports:
+                        - '8082:8082'
+                depends_on:
+                        - mysql-standalone
+                environment:
+                        #MYSQL_HOST=my-db
+                        #MYSQL_USERNAME=admin
+                        #MYSQL_PASSWORD=password
+                        #MYSQL_DATABASE=achatdb
+                        #MYSQL_PORT=3306
+                        SPRING_DATASOURCE_URL: jdbc:mysql://192.168.56.2:3306/achatdb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+                        SPRING_DATASOURCE_USERNAME: "achref"
+                        SPRING_DATASOURCE_PASSWORD: "password"
+volumes:
+        dbvol:
