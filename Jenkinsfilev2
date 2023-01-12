@@ -24,7 +24,7 @@ pipeline {
             }
 
         }
-		stage("Run Build & tests parallel") {
+		stage("Run Build & Tests parallel") {
 			failFast true
 			parallel {
                 stage('Build Project Skipping tests') {
