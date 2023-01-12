@@ -1,0 +1,99 @@
+pipeline {
+    agent any
+    environment {
+        EMAIL_RECIPIENTS = "mohamedelhedi.mansouri@esprit.tn"
+        // mvnHome = tool 'MAVEN_384'
+        // JavaHome = tool 'JAVA8_HOME'
+        // registry= "bessem8/timesheet"
+        // registryCredential = 'dockerHub'
+        // dockerImage = ''
+        localhost="192.168.1.188"
+    }
+    stages {
+
+        stage('Git Checkout') {
+            steps {
+                git branch: 'jenkinsFileHedi', url: 'https://github.com/beygh1/Validation_ProjetDO.git'
+            }
+        }
+        stage('Unit Testing') {
+            steps {
+                //sh 'mvn test'
+                sh 'mvn test' 
+            }
+        }
+        stage('Integration Testing') {
+            steps {
+                //sh  'mvn verify -DskipUnitTests'
+                sh  'mvn verify -DskipUnitTests -DskipTests'
+            }
+        }
+        stage('Maven Build') {
+            steps {
+                //sh  'mvn clean install'
+                sh 'mvn clean package'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                // script{
+                //     withSonarQubeEnv(credentialsId: 'sonar-api-key') {
+                //      sh 'mvn clean package sonar:sonar -DskipTests'
+                //  }
+                sh 'mvn sonar:sonar -Dsonar.projectKey=sonar-api-key -Dsonar.host.url=http://${localhost}:9000 -Dsonar.login=b400fade54c7c756f2d837fd97d7619290f43057'
+            }    
+        }
+        stage('MVN DEPLOY') {
+            steps {
+                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit -DartifactId=achat -Dversion=1.0 -DgeneratePom=true -Dpackaging=war -DrepositoryId=deploymentRepo -Durl=http://${localhost}:8081/repository/maven-releases/ -Dfile=target/achat-1.0.jar'
+            }
+        }
+        stage('BUILD') { 
+            steps { 
+                script { 
+                    timestamps {
+                    dockerImage = docker.build registry
+                    }
+                }
+            } 
+        }
+        stage('PUSH DOCKERHUB') { 
+            steps { 
+                script {
+                        timestamps {
+						  docker.withRegistry ('', registryCredential ) {
+							  dockerImage.push()
+                        }
+                    } 
+                }
+            } 
+            
+        }
+         stage('Remove Image') {
+            steps {
+                sh "docker rmi $registry:latest"
+            }
+        }
+           stage('DOCKER-COMPOSE') {
+            steps {
+                sh 'docker-compose down --remove-orphans'
+                sh 'docker-compose -f docker-compose.yml up -d'
+                sh 'docker restart spring-boot-docker-container'
+            }
+        }
+        
+    }
+    post {
+        always {
+     
+            emailext (
+                    to: "${EMAIL_RECIPIENTS}",
+                    replyTo: "${EMAIL_RECIPIENTS}",
+                    subject: "[BuildResult][${currentBuild.currentResult}] - Job '${env.JOB_NAME}' (${env.BUILD_NUMBER})",
+                    mimeType: 'text/html',
+                    body: '''${JELLY_SCRIPT, template="custom-html.jelly"}'''
+            )
+        }
+    }
+
+}

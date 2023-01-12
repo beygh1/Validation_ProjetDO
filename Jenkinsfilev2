@@ -85,7 +85,7 @@ pipeline {
             }
         }
 	
-        stage('Cleaning up') {
+        stage('Cleaning up Image') {
             steps {
                     script{
                             timestamps {
@@ -108,7 +108,6 @@ pipeline {
     }
     post {
         always {
-     
             emailext (
                     to: "${EMAIL_RECIPIENTS}",
                     replyTo: "${EMAIL_RECIPIENTS}",
