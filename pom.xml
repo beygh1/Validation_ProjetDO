@@ -91,7 +91,7 @@
                 <executions>
                   <execution>
                     <id>copy-dependencies</id>
-                    <phase>install</phase>
+                    <phase>prepare-package</phase>
                     <goals>
                       <goal>copy-dependencies</goal>
                     </goals>
