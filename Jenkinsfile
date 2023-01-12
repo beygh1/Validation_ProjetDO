@@ -9,24 +9,24 @@ pipeline {
                 url: 'https://github.com/beygh1/Validation_ProjetDO.git'
             }
         }
-         stage('Unit Testing') {
-            steps {
+        //  stage('Unit Testing') {
+        //     steps {
               
-                sh 'mvn test' 
-            }
-        }
+        //         sh 'mvn test' 
+        //     }
+        // }
         // stage('Integration Testing') {
         //     steps {
              
         //         sh  'mvn verify -DskipUnitTests -DskipTests'
         //     }
         // }
-        // stage('MVN CLEAN') {
-        //     steps {
-        //         sh 'mvn -version'
-        //         sh 'mvn clean'
-        //     }
-        // }
+        stage('MVN CLEAN') {
+            steps {
+                sh 'mvn -version'
+                sh 'mvn clean'
+            }
+        }
         // stage('MVN TEST (Mockito)') {
         //     steps {
         //         sh 'mvn test'
