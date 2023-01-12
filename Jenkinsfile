@@ -22,17 +22,11 @@ pipeline {
             }
         }
         
-        stage('copy dependecy') {
-            steps {
-               sh "mvn dependency:copy-dependencies -Dclassifier=sources"
-            }
-        }    
-        
         stage('install') {
             steps {
-               sh "mvn install"
+               sh "mvn install dependency:copy-dependencies "
             }
-        }        
+        }    
         
          stage('test') {
             steps {
