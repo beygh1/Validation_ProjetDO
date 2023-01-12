@@ -5,7 +5,7 @@ pipeline {
             steps {
                 
                 sh "git clone https://github.com/beygh1/Validation_ProjetDO.git"
-                sh "cd Validation_ProjetDO"
+                
                 sh "mvn clean"
             }
         }
