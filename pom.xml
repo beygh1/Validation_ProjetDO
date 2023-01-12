@@ -23,7 +23,7 @@
     </distributionManagement>
     <properties>
         <java.version>1.8</java.version>
-        <maven-jar-plugin.version>3.1.0</maven-jar-plugin.version>
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     </properties>
     <dependencies>
         <dependency>
@@ -86,13 +86,14 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>    
                 <executions>
                   <execution>
-                    <id>copy-dependencies</id>
+                    <id>copy-resources</id>
                     <phase>prepare-package</phase>
                     <goals>
-                      <goal>copy-dependencies</goal>
+                      <goal>copy-resources</goal>
                     </goals>
                     <configuration>
                       <outputDirectory>${project.build.directory}/${project.build.finalName}.lib</outputDirectory>
