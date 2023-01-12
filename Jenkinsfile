@@ -14,14 +14,11 @@ pipeline {
         }
         stage('Integration Testing') {
             steps {
-                sh  'mvn verify -DskipUnitTests -DskipTests'
+                sh  'mvn verify  -DskipTests'
             }
         }
-        stage('Maven Build') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
+.
+
         // stage('SonarQube Analysis') {
         //     steps {
         //         sh 'mvn sonar:sonar -Dsonar.projectKey=sonar-api-key -Dsonar.host.url=http://${localhost}:9000 -Dsonar.login=b400fade54c7c756f2d837fd97d7619290f43057'
