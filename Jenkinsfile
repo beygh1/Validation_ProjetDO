@@ -9,16 +9,19 @@ pipeline {
                 sh "mvn clean"
             }
         }
+        
+         stage('test') {
+            steps {
+                sh "mvn test"
+            }
+        }
+        
         stage('install') {
             steps {
                sh "mvn install"
             }
         }
-        stage('test') {
-            steps {
-                sh "mvn test"
-            }
-        }
+      
         stage('package') {
             steps {
                 sh "mvn package"
