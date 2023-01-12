@@ -12,6 +12,12 @@ pipeline {
         
          stage('test') {
             steps {
+                sh "ls"
+            }
+        }
+        
+         stage('test') {
+            steps {
                 sh "mvn test"
             }
         }
