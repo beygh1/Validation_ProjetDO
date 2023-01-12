@@ -10,15 +10,15 @@ pipeline {
             }
         }
         
-         stage('location') {
+         stage('MVN SONARQUBE') {
             steps {
-                sh "ls"
+                sh 'mvn sonar:sonar -Dsonar.projectKey=achref-key -Dsonar.host.url=http://192.168.1.19:9000 -Dsonar.login=293485fbadeb05e888a8f29eac6e24cf992b0b21'
             }
         }
         
          stage('test') {
             steps {
-                sh "mvn test"
+                sh "mvn test -B"
             }
         }
         
