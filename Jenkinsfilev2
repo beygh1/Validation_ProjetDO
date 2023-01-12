@@ -7,13 +7,11 @@ pipeline {
 	registry= "medhedimansouri/integration_project"
 	registryCredential = 'dockerHubId'
 	dockerImage = 'achat'
-    localhost="192.168.1.188"
+    localhost="192.168.0.8"
   }
 
     stages {
-
         stage('Clone Repo') {
-
             steps {
                 script{
                     
@@ -141,18 +139,18 @@ pipeline {
         
     }
     }
-    // post {
-    //     always {
+    post {
+        always {
      
-    //         emailext (
-    //                 to: "${EMAIL_RECIPIENTS}",
-    //                 replyTo: "${EMAIL_RECIPIENTS}",
-    //                 subject: "[BuildResult][${currentBuild.currentResult}] - Job '${env.JOB_NAME}' (${env.BUILD_NUMBER})",
-    //                 mimeType: 'text/html',
-    //                 body: '''${JELLY_SCRIPT, template="custom-html.jelly"}'''
-    //         )
-    //     }
-    // }
+            emailext (
+                    to: "${EMAIL_RECIPIENTS}",
+                    replyTo: "${EMAIL_RECIPIENTS}",
+                    subject: "[BuildResult][${currentBuild.currentResult}] - Job '${env.JOB_NAME}' (${env.BUILD_NUMBER})",
+                    mimeType: 'text/html',
+                    body: '''${JELLY_SCRIPT, template="custom-html.jelly"}'''
+            )
+        }
+    }
 	
     options {
         buildDiscarder(logRotator(numToKeepStr: '4'))
