@@ -35,7 +35,7 @@ pipeline {
         }
         stage('MVN DEPLOY') {
             steps {
-                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit -DartifactId=achat -Dversion=1.0 -DgeneratePom=true -Dpackaging=war -DrepositoryId=deploymentRepo -Durl=http://192.168.56.2:8081/repository/maven-releases/ -Dfile=target/achat-1.jar'
+                sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit -DartifactId=achat -Dversion=1.0 -DgeneratePom=true -Dpackaging=war -DrepositoryId=deploymentRepo -Durl=http://192.168.56.2:8081/repository/maven-releases/ -Dfile=target/achat-1.0.jar'
             }
         }
         // stage('Docker Image Build') {
