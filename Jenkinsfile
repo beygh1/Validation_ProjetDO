@@ -34,7 +34,8 @@ pipeline {
         // }
         stage('MVN SONARQUBE') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.projectKey=achref-key -Dsonar.host.url=http://192.168.56.2:9000 -Dsonar.login=293485fbadeb05e888a8f29eac6e24cf992b0b21'
+                //sh 'mvn sonar:sonar -Dsonar.projectKey=achref-key -Dsonar.host.url=http://192.168.56.2:9000 -Dsonar.login=293485fbadeb05e888a8f29eac6e24cf992b0b21'
+                sh"mvn package -B -DskipTests sonar:sonar -Dsonar.host.url=http://192.168.56.2:9000 -Dsonar.login=293485fbadeb05e888a8f29eac6e24cf992b0b21"
             }
         }
         // stage('MVN DEPLOY') {
