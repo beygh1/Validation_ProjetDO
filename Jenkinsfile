@@ -24,7 +24,7 @@ pipeline {
         
         stage('install') {
             steps {
-               sh "mvn install dependency:copy-dependencies "
+               sh "mvn install"
             }
         }    
         
