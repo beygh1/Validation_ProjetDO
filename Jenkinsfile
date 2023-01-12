@@ -9,6 +9,12 @@ pipeline {
                 sh "mvn clean"
             }
         }
+     stages {
+        stage('compile') {
+            steps {
+                sh "mvn compile"
+            }
+        }        
         
          stage('MVN SONARQUBE') {
             steps {
