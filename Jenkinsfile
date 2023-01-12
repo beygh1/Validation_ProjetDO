@@ -4,7 +4,7 @@ pipeline {
         localhost = "192.168.56.2"
         dockerImage = "achat"
         tagname = "second"
-        registry= "fouadk1/achat"
+        registry= "achref/achat"
         registryCredential = "dockerRegPwd"
     }
 
