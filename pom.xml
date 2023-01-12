@@ -61,17 +61,25 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>3.0.0</version>
         </dependency>
-
-       <dependency>
+        <dependency>
+	<groupId>org.mockito</groupId>
+         <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
          <groupId>log4j</groupId>
          <artifactId>log4j</artifactId>
          <version>1.2.17</version>
-       </dependency>
-       <dependency>
-        <groupId>com.microsoft.sqlserver</groupId>
-        <artifactId>mssql-jdbc</artifactId>
-        <scope>runtime</scope>
-       </dependency>
+        </dependency>
+        <dependency>
+          <groupId>com.microsoft.sqlserver</groupId>
+          <artifactId>mssql-jdbc</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+	  <groupId>junit</groupId>
+	  <artifactId>junit</artifactId>
+	  <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -79,8 +87,34 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>     
+                <version>3.1.0</version>    
+                <executions>
+                  <execution>
+                    <id>copy-dependencies</id>
+                    <phase>prepare-package</phase>
+                    <goals>
+                      <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                      <outputDirectory>${project.build.directory}/${project.build.finalName}.lib</outputDirectory>
+                    </configuration>
+                  </execution>
+                </executions>
+                     
             </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                  <archive>
+                    <manifest>
+                      <addClasspath>true</addClasspath>
+                      <classpathPrefix>${project.build.finalName}.lib/</classpathPrefix>
+                      <mainClass>${fully.qualified.main.class}</mainClass>
+                    </manifest>
+                  </archive>
+                </configuration>
+              </plugin>     
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
