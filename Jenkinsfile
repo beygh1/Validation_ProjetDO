@@ -3,9 +3,8 @@ pipeline {
       environment {
         localhost = "192.168.56.2"
         dockerImage = "achat"
-        tagname = "second"
-        registry= "achref/achat"
-        registryCredential = "dockerRegPwd"
+        registry= "achref2023/repodocker"
+        registryCredential = "dockerhub"
     }
 
 
@@ -54,16 +53,16 @@ pipeline {
                 }
             } 
         }
-        // stage('PUSH DOCKERHUB') { 
-        //     steps { 
+        stage('PUSH DOCKERHUB') { 
+            steps { 
              
-        //                 timestamps {
-		// 				  docker.withRegistry ('', registryCredential ) {
-		// 					  dockerImage.push()
-        //                 }
-        //             } 
+                        timestamps {
+						  docker.withRegistry ('', registryCredential ) {
+							  dockerImage.push()
+                        }
+                    } 
                 
-        //     } 
+            } 
             
         // }
         //  stage('RMV IMG') {
