@@ -10,7 +10,7 @@ pipeline {
             }
         }
         
-         stage('test') {
+         stage('location') {
             steps {
                 sh "ls"
             }
