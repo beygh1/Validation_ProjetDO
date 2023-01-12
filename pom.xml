@@ -84,14 +84,14 @@
 
     <build>
         <plugins>
-<!--             <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.1.0</version>    
                 <executions>
                   <execution>
                     <id>copy-resources</id>
-                    <phase>prepare-package</phase>
+                    <phase>install</phase>
                     <goals>
                       <goal>copy-resources</goal>
                     </goals>
@@ -101,7 +101,7 @@
                   </execution>
                 </executions>
                      
-            </plugin> -->
+            </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-jar-plugin</artifactId>
