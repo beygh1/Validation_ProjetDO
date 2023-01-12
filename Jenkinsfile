@@ -17,13 +17,12 @@ pipeline {
                 sh  'mvn test  -DskipTests'
             }
         }
-.
 
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         sh 'mvn sonar:sonar -Dsonar.projectKey=sonar-api-key -Dsonar.host.url=http://${localhost}:9000 -Dsonar.login=b400fade54c7c756f2d837fd97d7619290f43057'
-        //     }    
-        // }
+         stage('SonarQube Analysis') {
+             steps {
+                 sh 'mvn sonar:sonar -Dsonar.projectKey=sonar-api-key -Dsonar.host.url=http://${localhost}:9000 -Dsonar.login=b400fade54c7c756f2d837fd97d7619290f43057'
+             }    
+         }
         // stage('MVN DEPLOY') {
         //     steps {
         //         sh 'mvn clean package deploy:deploy-file -DgroupId=tn.esprit -DartifactId=achat -Dversion=1.0 -DgeneratePom=true -Dpackaging=war -DrepositoryId=deploymentRepo -Durl=http://${localhost}:8081/repository/maven-releases/ -Dfile=target/achat-1.0.jar'
