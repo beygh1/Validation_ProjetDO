@@ -12,7 +12,7 @@ pipeline {
         
          stage('MVN SONARQUBE') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.projectKey=achref-key -Dsonar.host.url=http://192.168.1.19:9000 -Dsonar.login=293485fbadeb05e888a8f29eac6e24cf992b0b21'
+                sh 'mvn sonar:sonar -Dsonar.projectKey=key -Dsonar.host.url=http://192.168.1.19:9000 -Dsonar.login=69e41706ac5fb3c1a19c2116b6aec8c0e3128d5e'
             }
         }
         
