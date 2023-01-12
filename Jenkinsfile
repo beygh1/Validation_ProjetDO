@@ -13,6 +13,11 @@ pipeline {
                 sh 'mvn sonar:sonar -Dsonar.projectKey=key -Dsonar.host.url=http://192.168.1.19:9000 -Dsonar.login=69e41706ac5fb3c1a19c2116b6aec8c0e3128d5e'
             }
         }
+        stage('install') {
+            steps {
+               sh "mvn install"
+            }
+        }        
         
          stage('test') {
             steps {
@@ -20,12 +25,6 @@ pipeline {
             }
         }
         
-        stage('install') {
-            steps {
-               sh "mvn install"
-            }
-        }
-      
         stage('package') {
             steps {
                 sh "mvn package"
