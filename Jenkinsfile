@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        imagename = "Beya/achat"
+        imagename = "beya/achat"
         registryCredential = 'dockerhub'
         dockerImage = ''
 }
