@@ -3,11 +3,6 @@ services:
 # Database Service (Mysql)
   database:
     image: mysql
-    container_name: version: '3'
-services:
-# Database Service (Mysql)
-  database:
-    image: mysql
     container_name: mysqldb
     environment:
       - MYSQL_ROOT_USER=root
