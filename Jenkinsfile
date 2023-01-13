@@ -1,7 +1,7 @@
 pipeline {
     agent any
       environment {
-        localhost = "192.168.1.150"
+        localhost = "172.16.1.144"
         dockerImage = "achat"
         registry= "achref2023/repodocker"
         registryCredential = "dockerhub"
