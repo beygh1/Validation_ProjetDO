@@ -13,6 +13,12 @@
     <version>1.0</version>
     <name>achat</name>
     <description>Projet pour le module DevOps</description>
+    <distributionManagement>
+    <snapshotRepository>
+    <id>nexus-snapshots</id>
+    <url>http://192.168.1.19:8081/repository/maven-releases/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
     <properties>
         <java.version>1.8</java.version>
@@ -107,7 +113,18 @@
                     </excludes>
                 </configuration>
             </plugin>
-
+       <plugin>
+      <groupId>org.sonatype.plugins</groupId>
+      <artifactId>nexus-staging-maven-plugin</artifactId>
+      <version>1.6.6</version>
+      <extensions>true</extensions>
+      <configuration>
+        <serverId>deploymentRepo</serverId>
+        <nexusUrl>http://192.168.1.19:8081/</nexusUrl>
+	<!-- update this to the correct id! -->
+       <!-- <stagingProfileId>1296f79efe04a4d0</stagingProfileId> -->
+      </configuration>
+    </plugin>
         </plugins>
     </build>
 
