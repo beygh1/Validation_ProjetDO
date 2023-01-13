@@ -120,7 +120,7 @@
       <extensions>true</extensions>
       <configuration>
         <serverId>deploymentRepo</serverId>
-        <nexusUrl>http://192.168.1.19:8081/</nexusUrl>
+        <nexusUrl>http://192.168.1.19:8081/nexus</nexusUrl>
 	<!-- update this to the correct id! -->
        <!-- <stagingProfileId>1296f79efe04a4d0</stagingProfileId> -->
       </configuration>
