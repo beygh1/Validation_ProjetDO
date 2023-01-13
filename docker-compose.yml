@@ -2,14 +2,14 @@ version: '3'
 services:
 # Database Service (Mysql)
   database:
-    image: mysql:5.7
-    container_name: mysql
+    image: mysql:
+    container_name: mysqldb
     environment:
       - MYSQL_ROOT_USER=root
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=achatdb
     ports:
-      - 3306:3306
+      - 3307:3307
     volumes:
       - /home/mysql/data
     networks:
@@ -19,12 +19,12 @@ services:
     depends_on:
       - database
     container_name: springcontainer
-    image: oumaymabenmkadem/achat:189
+    image: beya8devops/achat:189
     ports:
       - 8089:8089
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:mysql://database:3306/achatdb?useSSL=false",
+        "spring.datasource.url"  : "jdbc:mysql://database:3307/achatdb?useSSL=false",
         "spring.datasource.username" : "root",
         "spring.datasource.password" : "root",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
