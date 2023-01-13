@@ -13,14 +13,13 @@
     <version>1.0</version>
     <name>achat</name>
     <description>Projet pour le module DevOps</description>
-         <!-- Deploy to Nexus -->
     <distributionManagement>
-      <repository>
-        <id>deploymentRepo</id>
-        <name>Nexus Repository</name>
-        <url>http://localhost:8081/repository/maven-releases/</url>
-      </repository>
-    </distributionManagement>
+    <repository>
+    <id>deploymentRepo</id>
+    <url>http://192.168.1.19:8081/repository/maven-releases/</url>
+    </repository>
+  </distributionManagement>
+
     <properties>
         <java.version>1.8</java.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
@@ -61,17 +60,25 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>3.0.0</version>
         </dependency>
-
-       <dependency>
+        <dependency>
+	<groupId>org.mockito</groupId>
+         <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
          <groupId>log4j</groupId>
          <artifactId>log4j</artifactId>
          <version>1.2.17</version>
-       </dependency>
-       <dependency>
-        <groupId>com.microsoft.sqlserver</groupId>
-        <artifactId>mssql-jdbc</artifactId>
-        <scope>runtime</scope>
-       </dependency>
+        </dependency>
+        <dependency>
+          <groupId>com.microsoft.sqlserver</groupId>
+          <artifactId>mssql-jdbc</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+	  <groupId>junit</groupId>
+	  <artifactId>junit</artifactId>
+	  <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -79,8 +86,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>     
+                <version>3.1.0</version>
             </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                  <archive>
+                    <manifest>
+                      <addClasspath>true</addClasspath>
+                      <classpathPrefix>${project.build.finalName}.lib/</classpathPrefix>
+                      <mainClass>${fully.qualified.main.class}</mainClass>
+                    </manifest>
+                  </archive>
+                </configuration>
+              </plugin>     
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -93,7 +113,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
