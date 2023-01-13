@@ -27,24 +27,27 @@ pipeline {
             }
         }
         
-        stage('install') {
-            steps {
-               sh "mvn install"
-            }
-        }    
-        
-         stage('test') {
-            steps {
-                sh "mvn test"
-            }
-        }
-        
         stage('package') {
             steps {
                 sh "mvn package"
             }
         }
         
+         stage('test') {
+            steps {
+                sh "mvn test"
+            }
+        }      
+        
+        stage('install') {
+            steps {
+               sh "mvn install"
+            }
+        }    
+        
+
+        
+
         stage('NEXUS DEPLOY') {
             steps {
               sh "mvn deploy"
@@ -66,6 +69,10 @@ pipeline {
             }
           }
        }    
-
+        stage('Docker compose up') {
+            steps {
+              sh "docker-compose up -d"
+            }
+        }
     }
 }   
