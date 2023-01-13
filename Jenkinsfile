@@ -65,7 +65,7 @@ pipeline {
             } 
             
          }
-         stage('RMV IMG') {
+         stage('delete IMG') {
             steps {
                 sh "docker rmi $registry:latest"
             }
