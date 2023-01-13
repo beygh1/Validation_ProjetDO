@@ -14,7 +14,7 @@ services:
     ports:
       - "8086:8086"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://192.168.0.8:3306/achatdb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://192.168.1.188:3306/achatdb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: "sa"
       SPRING_DATASOURCE_PASSWORD: "password"
     build:

@@ -7,7 +7,7 @@ pipeline {
 	registry= "medhedimansouri/integration_project"
 	registryCredential = 'dockerHubId'
 	dockerImage = 'achat'
-    localhost="192.168.0.8"
+    localhost="192.168.1.188"
   }
 
     stages {
