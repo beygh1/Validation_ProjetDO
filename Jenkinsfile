@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         imagename = "salim/achat"
-        registryCredential = 'cred-dockerhub'
+        registryCredential = 'dockerhub'
         dockerImage = ''
 }
     stages {
@@ -57,6 +57,15 @@ pipeline {
               }
             }
        }
+       stage('Deploy image') {
+          steps{
+            script {
+                docker.withRegistry('',registryCredentials){
+                    dockerImage.push()
+                }
+            }
+          }
+       }    
 
     }
 }   
