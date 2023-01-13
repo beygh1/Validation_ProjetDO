@@ -7,7 +7,7 @@ services:
 services:
 # Database Service (Mysql)
   database:
-    image: mysql:5.7
+    image: mysql
     container_name: mysqldb
     environment:
       - MYSQL_ROOT_USER=root
@@ -24,7 +24,7 @@ services:
     depends_on:
       - database
     container_name: springcontainer
-    image: salim-achat:189
+    image: salimbhk/achat:65
     ports:
       - 8089:8089
     environment:
