@@ -49,22 +49,7 @@ pipeline {
             steps {
               sh "mvn deploy"
             }
-        }stage('Building image') {
-          steps{
-            script {
-              dockerImage = docker.build imagename + ":$BUILD_NUMBER"
-              }
-            }
-       }
-       stage('Deploy image') {
-          steps{
-            script {
-                docker.withRegistry('',registryCredentials){
-                    dockerImage.push()
-                }
-            }
-          }
-       }    
+       
         stage('Building image') {
           steps{
             script {
