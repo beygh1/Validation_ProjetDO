@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+        imagename = "salim/achat"
+        registryCredential = 'cred-dockerhub'
+        dockerImage = ''
+}
     stages {
         stage('git repo & clean') {
             steps {
@@ -45,6 +50,13 @@ pipeline {
               sh "mvn deploy"
             }
         }
+        stage('Building image') {
+          steps{
+            script {
+              dockerImage = docker.build imagename + ":$BUILD_NUMBER"
+              }
+            }
+       }
 
     }
 }   
