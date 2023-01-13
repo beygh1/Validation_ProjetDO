@@ -49,8 +49,8 @@ pipeline {
             steps {
               sh "mvn deploy"
             }
-       
-        stage('Building image') {
+             }
+               stage('Building image') {
           steps{
             script {
               dockerImage = docker.build imagename + ":$BUILD_NUMBER"
